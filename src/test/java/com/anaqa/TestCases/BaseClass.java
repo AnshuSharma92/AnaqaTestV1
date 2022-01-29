@@ -10,6 +10,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
@@ -34,9 +35,15 @@ public class BaseClass {
 	logger=Logger.getLogger("AnaqaTest");
 	PropertyConfigurator.configure("Log4j.properties");
 	
+	//WebDriverManager.chromedriver.setup();
+	ChromeOptions chromeoption=new ChromeOptions();
+	chromeoption.addArguments("headless");
+	
+	chromeoption.addArguments("window-size=1980,1080");
+	
 		if(br.equals("chrome")) {
 	System.setProperty("webdriver.chrome.driver",readConfig.getChromepath());
-		driver=new ChromeDriver();
+		driver=new ChromeDriver(chromeoption);
 		driver.manage().window().maximize();
 		driver.manage().deleteAllCookies();
 		driver.manage().timeouts().pageLoadTimeout(40, TimeUnit.SECONDS);
